@@ -17,11 +17,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'full_name', 'email', 
-        'password', 'phone_no', 'date_of_birth',
-        'photo_name', 'join_date', 'termination_date',
-        'next_of_kin', 'emergency_no', 'employment_type',
-        'active_tag', 'not_terminated', 'role', 
+        'id', 'full_name', 'email', 'phone_no', 'dob',
+        'join_date', 'termination_date','gender','role', 
+        'next_of_kin', 'next_of_kin_phn', 'next_of_kin_email',
+        'rela_next_of_kin', 'emergency_phn', 'emergency_email',
+        'emergency_name', 'emergency_rela', 'employment_type',
     ];
 
     /**
