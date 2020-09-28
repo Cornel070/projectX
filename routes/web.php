@@ -35,6 +35,7 @@ Route::group(['middleware'=> 'auth:web'], function(){
 		 	Route::get('all', 'UserController@index')->name('all-staff');
 		 	Route::get('add', 'UserController@create')->name('add-staff');
 		 	Route::post('add', 'UserController@store');
+		 	Route::get('{id}/view', 'UserController@show')->name('profile');
 		 });
 	});
 	

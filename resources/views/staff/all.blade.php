@@ -60,7 +60,7 @@
    @include('flash_msg')
    <div class="row staff-card-holder">
       @foreach($staffs as $staff)
-      <a href="" class="staff-card-1">
+      <a href="{{route('profile', $staff->id)}}" class="staff-card-1">
          <div class="card staff-card-2">
             <div class="staff-img">
                <img class="img-thumbnail" src="{{asset('assets/images/uploads/'.$staff->photo_name)}}" alt="{{$staff->full_name}}">

@@ -62,6 +62,7 @@ class UserController extends Controller
             'emergency_rela'     => ['required', 'string'],
             'employment_type'    => 'required',
             'role'               => 'required',
+            'address'            => 'required',
         ];
 
         $messages = [
@@ -121,8 +122,8 @@ class UserController extends Controller
         $this->validate($request, $rules);
         if (auth()->attempt(['email'=>$request->email, 
                            'password'=>$request->password])) {
-            // return redirect(route('dashboard'));
-            return redirect()->intended(); 
+            return redirect(route('dashboard'));
+            // return redirect()->intended(); 
         }
         return redirect()->back()->with('error','Incorrect Login Credentials');
     }
@@ -140,7 +141,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $staff = User::find($id);
+        $title = $staff->full_name;
+        return view('staff.profile', compact('title','staff'));
     }
 
     /**

@@ -103,3 +103,12 @@ if ((Windowwidth) > '575') {
    });
 }
 
+ //view confidence doc image in a modal
+$(document).on('click','#competence-tab', function(){
+    let img = $(this).data('img');
+    let displayModal = $('#comp_modal');
+    let imgHook = $('#comp-document');
+    $(imgHook).attr('src', img);
+    $(displayModal).modal('show');
+});
+
