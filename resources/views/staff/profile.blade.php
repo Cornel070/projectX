@@ -50,8 +50,12 @@
                                        <div class="staff-status on-duty"></div>
                                     </div>
                                     <div class="user-indicators">
-                                       <button type="button" class="btn btn-secondary btn-xs">secondary button</button>
-                                       <button type="button" class="btn btn-success btn-xs">Success button</button>
+                                       <button type="button" class="btn btn-pill btn-danger btn-air-danger btn-xs">
+                                          <i class="icofont icofont-ui-delete"></i> Delete Info
+                                       </button>
+                                       <button type="button" class="btn btn-pill btn-secondary btn-air-secondary btn-xs">
+                                          <i class="icofont icofont-ui-edit"></i> Edit Info 
+                                       </button>
                                     </div>
                                  </div>
                                  <div class="staff-profile-info">
@@ -141,7 +145,7 @@
                                     <div class="card-body">
                                        <div class="comp-details">
                                           @foreach($staff->competences as $comp)
-                                             <div class="shadow shadow-showcase p-25 text-center comp-box" id="competence-tab" data-toggle="tooltip" title="Click to view document" data-img="{{asset('assets/images/uploads/'.$comp->comp_doc)}}">
+                                             <div class="shadow shadow-showcase p-25 text-center comp-box" id="competence-tab" data-toggle="tooltip" title="Click to view document" data-img="{{asset('/assets/images/uploads/comp_docs/'.$comp->comp_doc)}}">
                                                 <h5 class="m-0 f-18">
                                                    {!! competenceIcon($comp->comp_name) !!}
                                                    <div class="comp-name">
@@ -153,12 +157,47 @@
                                                 </h5>
                                              </div>
                                           @endforeach
-                                          <div class="shadow shadow-showcase p-25 text-center add-more comp-box">
-                                                <h5 class="m-0 f-18"><i class="icofont icofont-plus-circle"></i></h5>
-                                                <div class="exp_date">
-                                                      Add competence
-                                                   </div>
+                                          <div class="shadow shadow-showcase p-25 text-center add-more comp-box" id="add-competence">
+                                             <h5 class="m-0 f-18"><i class="icofont icofont-plus-circle"></i></h5>
+                                             <div class="exp_date">
+                                                Add competence
                                              </div>
+                                          </div>
+                                          {{-- Add competence form --}}
+                                          <div class="shadow shadow-showcase p-25 text-center add-more add-comp-form hide">
+                                             <form id="competence-form" enctype="multipart/form-data" method="post">
+                                                @csrf
+                                                <div class="form-group">
+                                                   <div class="col-sm-12">
+                                                      <div class="row">
+                                                         <div class="col-md-4">
+                                                            <label class="control-label">Title</label>
+                                                            <input name="comp_name" class="form-control" type="text">
+                                                            <small class="error hide" id="title-error">Enter title</small>
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label class="control-label">File Upload</label>
+                                                            <input name="comp_doc" class="form-control" type="file" accept="image/*">
+                                                            <small class="error hide" id="doc-error">Upload document</small>
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label class="control-label">Expiry Date</label>
+                                                            <input type="date" name="exp_date" class="form-control">
+                                                            <small class="error hide" id="exp-error">Enter expiry date</small>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <input type="hidden" name="staffID" value="{{$staff->id}}">
+                                                <div class="form-group">
+                                                   <button class="btn btn-secondary btn-sm" id="save-comp"> Save</button>
+                                                   <button class="btn btn-secondary btn-sm loader-ico hide" disabled>
+                                                      <i class="fa fa-spin fa-spinner"></i> Saving..</button>
+                                                </div>
+                                             </form>
+                                             <a class="close-comp-form" id="close-comp-ico"><i class="fa fa-times-circle"></i></a>
+                                          </div>
+                                          {{-- Form ends --}}
                                        </div>
                                     </div>
                                  </div>
@@ -167,19 +206,7 @@
                            </div>
                            <div class="tab-pane fade" id="top-profilesecondary" role="tabpanel" aria-labelledby="profile-top-tab">
                               <div class="competences-cont">
-                                 @foreach($staff->competences as $comp)
-                                 <div class="card">
-                                    <div class="card-header b-l-secondary border-2">
-                                      <h5>{{$comp->comp_name}}</h5>
-                                    </div>
-                                    <div class="card-body">
-                                      <div class="cont-details">
-                                          <div><span>Staff ID: </span> {{$staff->id}}</div><br/>
-                                          <div><span>Joined: </span> {{Carbon\Carbon::parse($comp->exp_date)->format('l jS \of F Y') }}</div><br/>
-                                       </div>
-                                    </div>
-                                 </div>{{-- {{asset('assets/images/uploads/'.$comp->comp_doc)}} --}}
-                                 @endforeach
+                                <h1>STAFF PERFORMANCE STATISTICS AREA...</h1>
                               </div>
                            </div>
                         </div>
@@ -199,7 +226,7 @@
                </form>
             </div>
           @foreach( getStaff() as $staff)
-                  <a href="" class="staff-aside">
+                  <a href="{{route('profile', $staff->id)}}" class="staff-aside">
                      {{-- <img class="" src="{{asset('assets/images/uploads/'.$staff->photo_name)}}" alt="{{$staff->full_name}}"> --}}
                      <div>
                         <img src="{{asset('assets/images/uploads/'.$staff->photo_name)}}" alt="{{$staff->full_name}}">

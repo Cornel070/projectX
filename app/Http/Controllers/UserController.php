@@ -122,7 +122,7 @@ class UserController extends Controller
         $this->validate($request, $rules);
         if (auth()->attempt(['email'=>$request->email, 
                            'password'=>$request->password])) {
-            return redirect(route('dashboard'));
+            return redirect(route('home'));
             // return redirect()->intended(); 
         }
         return redirect()->back()->with('error','Incorrect Login Credentials');

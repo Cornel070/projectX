@@ -12,6 +12,9 @@
       <title>ProjectX - {{$title}}</title>
       @include('layouts.simple.css')
       @yield('style')
+      <script type='text/javascript'>
+        var page_data = {!! pageJsonData() !!};
+      </script>
    </head>
    <body>
       <!-- Loader starts-->

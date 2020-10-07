@@ -19,13 +19,51 @@ class CompetenceController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Add more competences.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addCompetence(Request $request)
     {
-        //
+        $rules = [
+            'comp_name' => ['required', 'string'],
+            'comp_doc'  => 'required',
+            'exp_date'  => 'required'
+        ];
+
+        $messages = [
+            'comp_name.required' => 'Title',
+            'comp_doc.required'  => 'Document',
+            'exp_date.required'  => 'Expiry'
+        ];
+
+        $validator = validator()->make($request->all(), $rules, $messages);
+        if ($validator->fails()){
+            return response()->json(array(
+                                'success'=>false,
+                                'errors'=>$validator->errors()->all()
+                            ));
+        }
+        if ($file = $request->file('comp_doc')) {
+            $name = $file->getClientOriginalName();
+            $storagePath = public_path('/assets/images/uploads/comp_docs');
+            if ($file->move($storagePath, $name)) {
+                $data = [
+                            'user_id'     => $request->staffID,
+                            'comp_name'   => $request->comp_name,
+                            'comp_doc'    => $name,
+                            'exp_date'    => $request->exp_date,
+                        ];
+                $comp = Competence::create($data);
+                return response()->json(array(
+                                        'success'=>true,
+                                        'comp' => $comp),200);
+            }
+        }
+        return response()->json(array(
+                                'success'=>false,
+                                'errors'=> 'Please upload a valid file'
+                            ));
     }
 
     /**

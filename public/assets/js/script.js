@@ -112,3 +112,103 @@ $(document).on('click','#competence-tab', function(){
     $(displayModal).modal('show');
 });
 
+//add competence from the user profile
+$(document).on('click', '#add-competence', function(){
+    $(this).fadeOut(300, function(){
+        $('.add-comp-form').toggleClass('hide');
+    });
+});
+
+$(document).on('click','#close-comp-ico', function(){
+    $(this).parent('div').toggleClass('hide');
+    $('#add-competence').fadeIn(300);
+});
+
+$(document).on('submit','#competence-form', function(e){
+    e.preventDefault();
+    let btn = $('#save-comp');
+    $(btn).fadeOut(300, function(){
+        $('.loader-ico').toggleClass('hide');
+    });
+    let formData = new FormData(this);
+    console.log(formData.get('comp_name'));
+    $.ajax({
+      type: "POST",
+      url: page_data.routes.add_comp,
+      processData: false,
+      contentType: false,
+      data: new FormData(this),
+      success: function(data){
+        $('.loader-ico').toggleClass('hide');
+        $(btn).fadeIn(300);
+        console.log(data);
+        //if theres an error 
+        if (data.success === false) {
+        //hide the already displayedd error msgs
+          hideErrTxts();
+          //get the errors array and loop through it
+          let errors = data.errors;
+          for (let i = 0; i < errors.length; i++) {
+            //for each iteration, show the appropraite error msg
+              displayErrors(errors[i]);
+            }
+        }else{
+            let com_box = `<div class="shadow shadow-showcase p-25 text-center comp-box" id="competence-tab" data-toggle="tooltip" title="Click to view document" data-img="{{asset('assets/images/uploads/'.${data.comp.comp_doc})}}">
+                                <h5 class="m-0 f-18">
+                                    <i class="icofont icofont-certificate-alt-1"></i>
+                                    <div class="comp-name">
+                                        ${data.comp.comp_name}<br/>
+                                    </div>
+                                    <div class="exp_date">
+                                        Exp: ${new Date(data.comp.exp_date).toDateString()}
+                                    </div>
+                                </h5>
+                            </div>`;
+            clearInputs('#competence-form');
+            $(com_box).insertBefore($('#add-competence'));
+        }
+      }
+    });
+})
+
+//function to check error messages and how appropriate error msg
+function displayErrors(error)
+{
+    // use switch statement to check
+    // in each case, remove the hide class from the error message
+    // to reveal the error message for that field
+    switch(error){
+
+        case 'Title':;
+             $('#title-error').removeClass('hide');
+        break;
+
+        case 'Document':
+            $('#doc-error').removeClass('hide');
+        break;
+
+        case 'Expiry':
+            $('#exp-error').removeClass('hide');
+        break;        
+    }
+    return true;
+}
+
+function hideErrTxts()
+{
+    $('#title-error').addClass('hide');
+    $('#doc-error').addClass('hide');
+    $('#exp-error').addClass('hide');
+
+    return true;
+}
+
+function clearInputs(form)
+{
+    let inputs = document.querySelectorAll(form+' input');
+    for( let i = 0; i < inputs.length; i++){
+        inputs[i].value = '';
+    }
+
+    return true;
+}

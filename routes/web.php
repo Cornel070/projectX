@@ -23,7 +23,7 @@ Route::group(['middleware'=> 'auth:web'], function(){
 	 Dashboard Access Routes
 	*/
 	Route::group(['prefix'=>'d'], function(){
-		Route::get('home', 'DashboardController@index')->name('dashboard');
+		Route::get('home', 'DashboardController@index')->name('home');
 	});
 
 	// NEED AUTHORIZATION
@@ -36,6 +36,7 @@ Route::group(['middleware'=> 'auth:web'], function(){
 		 	Route::get('add', 'UserController@create')->name('add-staff');
 		 	Route::post('add', 'UserController@store');
 		 	Route::get('{id}/view', 'UserController@show')->name('profile');
+		 	Route::post('add_comp', 'CompetenceController@addCompetence')->name('add_comp');
 		 });
 	});
 	

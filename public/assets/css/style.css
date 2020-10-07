@@ -32,6 +32,16 @@ label{
 	font-weight: bold;
 }
 
+.hide{
+	display: none !important;
+}
+
+.error{
+	color: red !important;
+	font-weight: bold;
+	font-size: 8px;
+}
+
 .staff-card-holder{
 	display: flex;
 	justify-content: space-between;
@@ -145,7 +155,8 @@ label{
 
 .user-indicators button{
 	border-radius: 50px;
-	margin: 5px;
+	margin: 7px;
+	font-weight: bold;
 }
 
 .staff-profile-info{
@@ -210,6 +221,23 @@ label{
 	transform: scale(1.05);
 }
 
+.add-comp-form{
+	height: 150px;
+	transition: all .6s ease-in-out;
+	/*transform: scale(1.5);*/
+}
+
+.add-comp-form label.control-label{
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.add-comp-form input{
+	height: 40px;
+	width: 100px;
+	font-size: 8px;
+}
+
 .comp-name{
 	font-size: 10px;
 	font-weight: bold;
@@ -229,7 +257,21 @@ label{
 	font-size: 30px ;
 }
 
+.close-comp-form{
+	position: absolute;
+	cursor: pointer;
+	top: 270px;
+	left: 410px;
+}
 
+.close-comp-form i{
+	color: red;
+	font-weight: bold;
+}
+
+.loader-box{
+	flex-grow: 2;
+}
 
 .cont-details{
 	display: flex;
