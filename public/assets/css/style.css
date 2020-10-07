@@ -148,14 +148,16 @@ label{
 .user-indicators{
 	display: flex;
 	justify-content: space-between;
-	width: 70%;
+	width: 80%;
 	align-items: center;
-	margin: 25px 8px 0 10px;
+	margin: 25px 0 0 10px;
 }
 
 .user-indicators button{
 	border-radius: 50px;
-	margin: 7px;
+	margin: 10px;
+	padding: 2px;
+	width: 130px;
 	font-weight: bold;
 }
 
@@ -295,7 +297,7 @@ label{
 	position: absolute;
 	border-radius: 50%;
 	top: 212px;
-	right: 715px;
+	right: 525px;
 }
 
 .staff-status-sm{
