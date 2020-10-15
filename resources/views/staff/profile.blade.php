@@ -17,7 +17,7 @@
 <h3>Staff Profile</h3>
 @endsection--}}
 
-@section('quick-tools')
+
 
 @section('content')
 <div class="container-fluid">
@@ -47,7 +47,7 @@
                               <div class="staff-profile-cont">
                                  <div class="staff-profile-img">
                                     <div>
-                                       <img src="{{asset('assets/images/uploads/'.$staff->photo_name)}}" alt="{{$staff->full_name}}">
+                                       <img src="{{asset('public/assets/images/uploads/'.$staff->photo_name)}}" alt="{{$staff->full_name}}">
                                        <div class="staff-status on-duty"></div>
                                     </div>
                                     <div class="user-indicators">
@@ -145,7 +145,7 @@
                                  </div>
 
                                   {{-- Competences --}}
-                                 <div class="card contact-card">
+                                 <div class="card contact-card scroll-content comp-container">
                                     <div class="card-header b-t-secondary">
                                       <h5><i class="icofont icofont-certificate-alt-1"></i> Competences</h5>
                                     </div>
@@ -171,7 +171,7 @@
                                              </div>
                                           </div>
                                           {{-- Add competence form --}}
-                                          <div class="shadow shadow-showcase p-25 text-center add-more add-comp-form hide">
+                                          <div class="shadow shadow-showcase p-t-25 text-center add-more add-comp-form hide">
                                              <form id="competence-form" enctype="multipart/form-data" method="post">
                                                 @csrf
                                                 <div class="form-group">
@@ -210,6 +210,7 @@
                                  </div>
                               </div>
                               {{-- OTHER DETAILS ENDS --}}
+
                            </div>
                            <div class="tab-pane fade" id="top-profilesecondary" role="tabpanel" aria-labelledby="profile-top-tab">
                               <div class="competences-cont">
@@ -223,29 +224,8 @@
             </div>
          </div>
          {{-- Users display sidebar --}}
-         <div class="col-md-3 staff-pane scrollable">
-            <div class="card-header">
-               <form class="search-form">
-                  <div class="form-group m-0">
-                     <label class="sr-only">Email</label>
-                     <input class="form-control-plaintext" id="search-staff" type="search" placeholder="Search..">
-                  </div>
-               </form>
-            </div>
-          @foreach( getStaff() as $staff)
-                  <a href="{{route('profile', $staff->id)}}" class="staff-aside">
-                     {{-- <img class="" src="{{asset('assets/images/uploads/'.$staff->photo_name)}}" alt="{{$staff->full_name}}"> --}}
-                     <div>
-                        <img src="{{asset('assets/images/uploads/'.$staff->photo_name)}}" alt="{{$staff->full_name}}">
-                        <div class="staff-status-sm on-duty"></div>
-                     </div>
-                     <div class="staff-text">
-                        <h5>{{$staff->full_name}}</h5>
-                        <p>{{$staff->role}}</p>
-                     </div>
-                  </a>
-            @endforeach
-         </div>
+         @include('layouts.simple.staff-sidebar')
+         {{-- Sidebar ends --}}
 
          <!-- user profile fifth-style end-->
          <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

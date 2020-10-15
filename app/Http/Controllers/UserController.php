@@ -18,7 +18,10 @@ class UserController extends Controller
         // $password = "@projectX22";
         // dd(Hash::make($password));
         $title = "All staff";
-        $staffs = User::where('role', '!=', 'Super Admin')->get();
+        $staffs = User::where('role', '!=', 'Super Admin')
+                    ->where(function($q){
+                        $q->where('not_terminated', 'true');
+                    })->get();
         return view('staff.all',compact('title','staffs'));
     }
 

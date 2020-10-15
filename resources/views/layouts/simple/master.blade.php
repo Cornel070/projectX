@@ -34,7 +34,7 @@
             <!-- Page Sidebar Ends-->
             <div class="page-body">
                <div class="container-fluid">
-                  <div class="page-header">
+                  {{-- <div class="page-header">
                      <div class="row">
                         <div class="col-lg-6">
                            <ol class="breadcrumb">
@@ -45,7 +45,7 @@
                         </div>
                         @yield('quick-tools')
                      </div>
-                  </div>
+                  </div> --}}
                </div>
                <!-- Container-fluid starts-->
                @yield('content')

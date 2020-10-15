@@ -225,7 +225,7 @@
                               <label for="status">Role</label>
                               <select name="role" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" id="role">
                                  <option>--Select role--</option>
-                                 <option value="super_admin" {{old('role') === 'super_admin' ? 'selected':''}}>Admin</option>
+                                 <option value="Super Admin" {{old('role') === 'super_admin' ? 'selected':''}}>Admin</option>
                                  <option value="Human Resource" {{old('role') === 'Human Resource' ? 'selected':''}}>Human Resource</option>
                                  <option value="Finance" {{old('role') === 'Finance' ? 'selected':''}}>Finance</option>
                                  <option value="House Manager" {{old('role') === 'House Manager' ? 'selected':''}}>House Manager</option>

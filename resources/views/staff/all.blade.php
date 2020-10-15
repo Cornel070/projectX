@@ -63,7 +63,7 @@
       <a href="{{route('profile', $staff->id)}}" class="staff-card-1">
          <div class="card staff-card-2">
             <div class="staff-img">
-               <img class="img-thumbnail" src="{{asset('assets/images/uploads/'.$staff->photo_name)}}" alt="{{$staff->full_name}}">
+               <img class="img-thumbnail" src="{{asset('public/assets/images/uploads/'.$staff->photo_name)}}" alt="{{$staff->full_name}}">
             </div>
             <div class="text-center profile-details">
                <h4>{{$staff->full_name}}</h4>

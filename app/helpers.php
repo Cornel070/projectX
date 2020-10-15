@@ -37,7 +37,10 @@ if ( ! function_exists('pageJsonData')){
 
 if (!function_exists('getStaff')) {
 	function getStaff(){
-		return User::where('role', '!=', 'Super Admin')->get();
+		return User::where('role', '!=', 'Super Admin')
+                    ->where(function($q){
+                        $q->where('not_terminated', 'true');
+                    })->get();
 	}
 }
 
