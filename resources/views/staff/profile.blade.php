@@ -15,12 +15,13 @@
 
 {{-- @section('breadcrumb-title')
 <h3>Staff Profile</h3>
-@endsection
+@endsection--}}
 
-@section('quick-tools') --}}
+@section('quick-tools')
 
 @section('content')
 <div class="container-fluid">
+    @include('flash_msg')
    <div class="user-profile">
       <div class="row">
          <div class="col-md-9">
@@ -50,21 +51,27 @@
                                        <div class="staff-status on-duty"></div>
                                     </div>
                                     <div class="user-indicators">
-                                       <button type="button" class="btn btn-pill btn-danger btn-air-danger btn-xs">
-                                          <i class="icofont icofont-ui-delete"></i> Delete Info
+                                       <button type="button" id="del-staff-btn" class="btn btn-pill btn-danger btn-air-danger btn-xs" data-toggle="tooltip" title="Delete staff" data-url="{{route('delete-staff', $staff->id)}}">
+                                          <i data-feather="trash-2"></i>
                                        </button>
-                                       <button type="button" class="btn btn-pill btn-secondary btn-air-secondary btn-xs">
-                                          <i class="icofont icofont-ui-edit"></i> Edit Info 
+                                        <button type="button" id="reinstate-staff-btn" class="btn btn-pill btn-success btn-air-secondary btn-xs {{ $staff->not_terminated == "false" ? '' : 'hide' }}" data-toggle="tooltip" title="Reinstate staff" data-id="{{$staff->id}}">
+                                            <i data-feather="user-check"></i>
+                                        </button>
+                                        <button type="button" id="term-staff-btn" class="btn btn-pill btn-warning btn-air-secondary btn-xs {{ $staff->not_terminated == "false" ? 'hide' : '' }}" data-toggle="tooltip" title="Terminate staff contract" data-id="{{$staff->id}}">
+                                            <i data-feather="user-x"></i>
+                                        </button>
+                                       <button type="button" onclick="window.location.href='{{route('edit-staff', $staff->id)}}'" class="btn btn-pill btn-secondary btn-air-secondary btn-xs" data-toggle="tooltip" title="Edit staff information">
+                                          <i data-feather="edit"></i>
                                        </button>
                                     </div>
                                  </div>
                                  <div class="staff-profile-info">
-                                    <h4 class="staff-name">{{$staff->full_name}}</h4>
+                                    <h4 class="staff-name">{{$staff->full_name}}</h4> <span class="badge badge-warning {{ $staff->not_terminated == "false" ? '' : 'hide' }}" id="terminated_tag">Terminated</span>
                                     <h6 class="staff-role">{{$staff->role}}</h6>
                                     <div class="other-details">
                                           <span class="icofont icofont-ui-touch-phone"></span> {{$staff->phone_no}}<br/>
                                           <span class="icofont icofont-ui-email"></span> {{$staff->email}}<br/>
-                                          <span  class="icofont icofont-birthday-cake"></span> 
+                                          <span  class="icofont icofont-birthday-cake"></span>
                                           {{Carbon\Carbon::parse($staff->dob)->format('l jS \of F Y') }} ({{age($staff->dob)}} years)
                                           <br/>
                                           <span class="icofont icofont-location-arrow"></span> {{$staff->address}}
@@ -239,7 +246,7 @@
                   </a>
             @endforeach
          </div>
-         
+
          <!-- user profile fifth-style end-->
          <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="pswp__bg"></div>

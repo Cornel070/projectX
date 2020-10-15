@@ -36,10 +36,15 @@ Route::group(['middleware'=> 'auth:web'], function(){
 		 	Route::get('add', 'UserController@create')->name('add-staff');
 		 	Route::post('add', 'UserController@store');
 		 	Route::get('{id}/view', 'UserController@show')->name('profile');
-		 	Route::post('add_comp', 'CompetenceController@addCompetence')->name('add_comp');
+            Route::post('add_comp', 'CompetenceController@addCompetence')->name('add_comp');
+            Route::get('{id}/edit', 'UserController@edit')->name('edit-staff');
+            Route::post('{id}/edit', 'UserController@update');
+            Route::get('{id}/delete', 'UserController@destroy')->name('delete-staff');
+            Route::post('terminate_contract', 'UserController@terminateContract')->name('terminate_contract');
+            Route::post('reinstate_staff', 'UserController@reinstateStaff')->name('reinstate_staff');
 		 });
 	});
-	
+
 });
 
 
@@ -60,7 +65,7 @@ Route::prefix('dashboard')->group(function () {
 Route::prefix('widgets')->group(function () {
     Route::view('general-widget', 'widgets.general-widget')->name('general-widget');
     Route::view('chart-widget', 'widgets.chart-widget')->name('chart-widget');
-});  
+});
 
 Route::prefix('ui-kits')->group(function () {
     Route::view('state-color', 'ui-kits.state-color')->name('state-color');
@@ -263,7 +268,7 @@ Route::prefix('apps')->group(function () {
     Route::view('to-do', 'apps.to-do')->name('to-do');
     Route::view('faq', 'apps.faq')->name('faq');
     Route::view('knowledgebase', 'apps.knowledgebase')->name('knowledgebase');
-    Route::view('support-ticket', 'apps.support-ticket')->name('support-ticket'); 
+    Route::view('support-ticket', 'apps.support-ticket')->name('support-ticket');
 });
 
 Route::prefix('starter-kit')->group(function () {
@@ -337,7 +342,7 @@ Route::prefix('page-layout')->group(function () {
     Route::view('dark-box-layout', 'page-layouts.dark-box-layout')->name('pages-dark-box-layout');
     Route::view('vertical-box-layout', 'page-layouts.vertical-box-layout')->name('pages-vertical-box-layout');
     Route::view('compact-dark-layout', 'page-layouts.compact-dark-layout')->name('pages-compact-dark-layout');
-}); 
+});
 
 Route::get('/clear-cache', function() {
     Artisan::call('config:cache');

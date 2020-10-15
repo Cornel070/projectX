@@ -13,7 +13,7 @@
 @endsection --}}
 
 @section('breadcrumb-title')
-<h3>Add staff</h3>
+<h3>{{$staff->full_name}} - Edit Information</h3>
 @endsection
 
 @section('quick-tools')
@@ -24,7 +24,7 @@
       <div class="col-sm-12">
          <div class="card">
             <div class="card-header">
-               <h5>Staff registration form</h5>
+               <h5></h5>
             </div>
             <div class="card-body">
                <!-- Smart Wizard start-->
@@ -32,16 +32,16 @@
                   @csrf
                   <div class="wizard-4" id="wizard">
                      <ul>
-                        <li><a href="#step-1">Step 1<small>Personnal Details</small></a></li>
-                        <li><a href="#step-2">Step 2<small>Emergency Details</small></a></li>
-                        <li><a href="#step-3">Step 3<small>Employment Details</small></a></li>
-                        <li class="pb-0"><a href="#step-4">Step 4<small>Competences</small></a></li>
+                        <li><a href="#step-1">Edit<small>Personnal Details</small></a></li>
+                        <li><a href="#step-2">Edit<small>Emergency Details</small></a></li>
+                        <li><a href="#step-3">Edit<small>Employment Details</small></a></li>
+                        <li class="pb-0"><a href="#step-4">Edit<small>Competences</small></a></li>
                      </ul>
                      <div id="step-1">
                         <div class="col-sm-12 pl-0">
                            <div class="form-group">
                               <label for="name">Full Name</label>
-                              <input name="full_name" class="form-control{{ $errors->has('full_name') ? ' is-invalid' : '' }}" id="name" type="text" placeholder="Johan" value="{{old('full_name')}}" >
+                              <input name="full_name" class="form-control{{ $errors->has('full_name') ? ' is-invalid' : '' }}" id="name" type="text" placeholder="Johan" value="{{ $staff->full_name }}" >
                               @if ($errors->has('full_name'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('full_name') }}</strong>
@@ -52,9 +52,9 @@
                               <label for="gender">Gender</label>
                               <select name="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" id="gender">
                                  <option>--Select gender--</option>
-                                 <option value="Male" {{old('gender') === 'Male' ? 'selected':''}}>Male</option>
-                                 <option value="Female" {{old('gender') === 'Female' ? 'selected':''}}>Female</option>
-                                 <option value="Others" {{old('gender') === 'Others' ? 'selected':''}}>Others</option>
+                                 <option value="Male" {{ $staff->gender === 'Male' ? 'selected':''}}>Male</option>
+                                 <option value="Female" {{ $staff->gender === 'Female' ? 'selected':''}}>Female</option>
+                                 <option value="Others" {{ $staff->gender === 'Others' ? 'selected':''}}>Others</option>
                               </select>
                               @if ($errors->has('gender'))
                                  <span class="invalid-feedback" role="alert">
@@ -64,7 +64,7 @@
                            </div>
                            <div class="form-group">
                               <label for="email">Email Address</label>
-                              <input name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" type="email" placeholder="doe@example" value="{{old('email')}}">
+                              <input name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" type="email" placeholder="doe@example" value="{{ $staff->email }}">
                               @if ($errors->has('email'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -73,7 +73,7 @@
                            </div>
                            <div class="form-group">
                               <label for="contact">Phone No.</label>
-                              <input name="phone_no" class="form-control{{ $errors->has('phone_no') ? ' is-invalid' : '' }} digits" type="number" placeholder="+610889878" value="{{old('phone')}}">
+                              <input name="phone_no" class="form-control{{ $errors->has('phone_no') ? ' is-invalid' : '' }} digits" type="number" placeholder="+610889878" value="{{$staff->phone_no}}">
                               @if ($errors->has('phone_no'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('phone_no') }}</strong>
@@ -82,7 +82,7 @@
                            </div>
                            <div class="form-group">
                               <label for="contact">Home Address</label>
-                              <input name="address" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" type="text" value="{{old('address')}}">
+                              <input name="address" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" type="text" value="{{$staff->address }}">
                               @if ($errors->has('address'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('address') }}</strong>
@@ -91,7 +91,7 @@
                            </div>
                             <div class="form-group">
                               <label for="contact">Date of Birth</label>
-                              <input name="dob" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" type="date" value="{{old('dob')}}">
+                              <input name="dob" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" type="date" value="{{$staff->dob}}">
                               @if ($errors->has('dob'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('dob') }}</strong>
@@ -109,7 +109,7 @@
                            </div>
                            <div class="form-group">
                               <label for="contact">Next of Kin</label>
-                              <input name="next_of_kin" class="form-control{{ $errors->has('next_of_kin') ? ' is-invalid' : '' }}" type="text" value="{{old('next_of_kin')}}">
+                              <input name="next_of_kin" class="form-control{{ $errors->has('next_of_kin') ? ' is-invalid' : '' }}" type="text" value="{{$staff->next_of_kin }}">
                               @if ($errors->has('next_of_kin'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('next_of_kin') }}</strong>
@@ -118,8 +118,7 @@
                            </div>
                            <div class="form-group">
                               <label for="contact">Relationship with next of Kin</label>
-                              <input name="rela_next_of_kin" class="form-control{{ $errors->has('rela_next_of_kin') ? ' is-invalid' : '' }}"
-                              type="text" value="{{old('rela_next_of_kin')}}">
+                              <input name="rela_next_of_kin" class="form-control{{ $errors->has('rela_next_of_kin') ? ' is-invalid' : '' }}" type="text" value="{{ $staff->rela_next_of_kin }}">
                               @if ($errors->has('rela_next_of_kin'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('rela_next_of_kin') }}</strong>
@@ -128,7 +127,7 @@
                            </div>
                            <div class="form-group">
                               <label for="contact">Next of Kin Phone No.</label>
-                              <input name="next_of_kin_phn" class="form-control{{ $errors->has('next_of_kin_phn') ? ' is-invalid' : '' }} digits" type="text" value="{{old('next_of_kin_phn')}}">
+                              <input name="next_of_kin_phn" class="form-control{{ $errors->has('next_of_kin_phn') ? ' is-invalid' : '' }} digits" type="text" value="{{ $staff->next_of_kin_phn }}">
                               @if ($errors->has('next_of_kin_phn'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('next_of_kin_phn') }}</strong>
@@ -137,7 +136,7 @@
                            </div>
                             <div class="form-group">
                               <label for="contact">Next of Kin Email</label>
-                              <input name="next_of_kin_email" class="form-control{{ $errors->has('next_of_kin_email') ? ' is-invalid' : '' }}" type="text" value="{{old('next_of_kin_email')}}">
+                              <input name="next_of_kin_email" class="form-control{{ $errors->has('next_of_kin_email') ? ' is-invalid' : '' }}" type="text" value="{{ $staff->next_of_kin_email }}">
                               @if ($errors->has('next_of_kin_email'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('next_of_kin_email') }}</strong>
@@ -148,15 +147,15 @@
                      </div>
                      <div id="step-2">
                         <div class="col-sm-12 pl-0">
-                           <div class="form-group m-t-15">
+                           {{-- <div class="form-group m-t-15">
                               <label class="d-block" for="chk-ani">
-                              <input class="checkbox_animated" id="chk-ani" type="checkbox" name="same" {{old('same')==='on'?'checked':''}}>
+                              <input class="checkbox_animated" id="chk-ani" type="checkbox" name="same" {{ $staff->same ==='on'?'checked':''}}>
                                  Same as Next of Kin
                               </label>
-                           </div>
-                           <div class="form-group">
+                           </div> --}}
+                           <div class="form-group m-t-15">
                               <label for="contact">Emergency Name</label>
-                              <input name="emergency_name" class="form-control{{ $errors->has('emergency_name') ? ' is-invalid' : '' }}" type="text" value="{{old('emergency_name')}}">
+                              <input name="emergency_name" class="form-control{{ $errors->has('emergency_name') ? ' is-invalid' : '' }}" type="text" value="{{ $staff->emergency_name }}">
                               @if ($errors->has('emergency_name'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('emergency_name') }}</strong>
@@ -165,7 +164,7 @@
                            </div>
                            <div class="form-group">
                               <label for="contact">Relationship</label>
-                              <input name="emergency_rela" class="form-control{{ $errors->has('emergency_rela') ? ' is-invalid' : '' }}" type="text" placeholder="Wife, Father, Mother .." value="{{old('emergency_rela')}}">
+                              <input name="emergency_rela" class="form-control{{ $errors->has('emergency_rela') ? ' is-invalid' : '' }}" type="text" placeholder="Wife, Father, Mother .." value="{{ $staff->emergency_rela }}">
                               @if ($errors->has('emergency_rela'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('emergency_rela') }}</strong>
@@ -174,7 +173,7 @@
                            </div>
                            <div class="form-group">
                               <label for="contact">Emergency Phone No.</label>
-                              <input name="emergency_phn" class="form-control{{ $errors->has('emergency_phn') ? ' is-invalid' : '' }} digits" type="text" placeholder="+610889878" value="{{old('emergency_phn')}}">
+                              <input name="emergency_phn" class="form-control{{ $errors->has('emergency_phn') ? ' is-invalid' : '' }} digits" type="text" placeholder="+610889878" value="{{ $staff->emergency_phn }}">
                               @if ($errors->has('emergency_phn'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('emergency_phn') }}</strong>
@@ -183,7 +182,7 @@
                            </div>
                            <div class="form-group">
                               <label for="email">Emergency Email</label>
-                              <input name="emergency_email" class="form-control{{ $errors->has('emergency_email') ? ' is-invalid' : '' }}" type="text" placeholder="doe@example" value="{{old('emergency_email')}}">
+                              <input name="emergency_email" class="form-control{{ $errors->has('emergency_email') ? ' is-invalid' : '' }}" type="text" placeholder="doe@example" value="{{ $staff->emergency_email }}">
                               @if ($errors->has('emergency_email'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('emergency_email') }}</strong>
@@ -196,7 +195,7 @@
                         <div class="col-sm-12 pl-0">
                            <div class="form-group">
                               <label for="em_no">Employment No.</label>
-                              <input name="id" class="form-control{{ $errors->has('id') ? ' is-invalid' : '' }} digits" type="text" value="{{old('id')}}">
+                              <input name="id" class="form-control{{ $errors->has('id') ? ' is-invalid' : '' }} digits" type="text" value="{{ $staff->id }}">
                                @if ($errors->has('id'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('id') }}</strong>
@@ -205,7 +204,7 @@
                            </div>
                            <div class="form-group">
                               <label class="control-label">Date of joining</label>
-                              <input name="join_date" class="form-control{{ $errors->has('join_date') ? ' is-invalid' : '' }}" type="date" value="{{old('join_date')}}">
+                              <input name="join_date" class="form-control{{ $errors->has('join_date') ? ' is-invalid' : '' }}" type="date" value="{{ $staff->join_date }}">
                                @if ($errors->has('join_date'))
                                  <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('join_date') }}</strong>
@@ -216,113 +215,60 @@
                               <label for="status">Employee Status</label>
                               <select name="employment_type" class="form-control{{ $errors->has('employment_type') ? ' is-invalid' : '' }}" id="employment_type">
                                  <option>--Select status--</option>
-                                 <option value="Full Time" {{old('employment_type') === 'Full Time' ? 'selected':''}}>Full Time</option>
-                                 <option value="Permanent Part Time" {{old('employment_type') === 'Permanent Part Time' ? 'selected':''}}>Permanent Part Time</option>
-                                 <option value="Casual" {{old('employment_type') === 'Casual' ? 'selected':''}}>Casual</option>
+                                 <option value="Full Time" {{ $staff->employment_type === 'Full Time' ? 'selected':''}}>Full Time</option>
+                                 <option value="Permanent Part Time" {{ $staff->employment_type === 'Permanent Part Time' ? 'selected':''}}>Permanent Part Time</option>
+                                 <option value="Casual" {{ $staff->employment_type === 'Casual' ? 'selected':''}}>Casual</option>
                               </select>
                            </div>
                             <div class="form-group">
                               <label for="status">Role</label>
                               <select name="role" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" id="role">
                                  <option>--Select role--</option>
-                                 <option value="super_admin" {{old('role') === 'super_admin' ? 'selected':''}}>Admin</option>
-                                 <option value="Human Resource" {{old('role') === 'Human Resource' ? 'selected':''}}>Human Resource</option>
-                                 <option value="Finance" {{old('role') === 'Finance' ? 'selected':''}}>Finance</option>
-                                 <option value="House Manager" {{old('role') === 'House Manager' ? 'selected':''}}>House Manager</option>
-                                 <option value="Caregiver" {{old('role') === 'Caregiver' ? 'selected':''}}>Caregiver</option>
+                                 <option value="super_admin" {{ $staff->role === 'super_admin' ? 'selected':''}}>Admin</option>
+                                 <option value="Human Resource" {{ $staff->role === 'Human Resource' ? 'selected':''}}>Human Resource</option>
+                                 <option value="Finance" {{ $staff->role === 'Finance' ? 'selected':''}}>Finance</option>
+                                 <option value="House Manager" {{ $staff->role === 'House Manager' ? 'selected':''}}>House Manager</option>
+                                 <option value="Caregiver" {{ $staff->role === 'Caregiver' ? 'selected':''}}>Caregiver</option>
                               </select>
                            </div>
                         </div>
                      </div>
                      <div id="step-4">
-                        <div class="col-sm-12 pl-0" id="comp-area">
-                           <div class="form-group">
-                              <div class="col-sm-12">
-                                 <div class="row">
+                        <div class="col-sm-12 pl-0 competences-area" id="comp-area">
+                            @foreach ($staff->competences as $comp)
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                <div class="row">
                                     <div class="col-md-4">
-                                       <label class="control-label">Title</label>
-                                       <input name="comp_name[]" class="form-control" type="text" value="First Aid Certificate" readonly="">
+                                        <label class="control-label">Title</label>
+                                        <input name="comp_name[]" class="form-control" type="text" value="{{$comp->comp_name}}" readonly="">
+                                        {{-- Hidden values area --}}
+                                        <input type="hidden" name="user_id" value="{{$staff->id}}">
+                                        <input type="hidden" name="comp_id" value="{{$comp->id}}">
                                     </div>
                                     <div class="col-md-4">
-                                       <label class="control-label{{ $errors->has('comp_doc') ? ' is-invalid' : '' }}">File Upload</label>
-                                       <input name="comp_doc[]" class="form-control" type="file" required="" accept="image/*">
-                                       @if ($errors->has('comp_doc'))
-                                          <span class="invalid-feedback" role="alert">
-                                             <strong>{{ $errors->first('comp_doc') }}</strong>
-                                          </span>
-                                       @endif
+                                        <label class="control-label{{ $errors->has('comp_doc') ? ' is-invalid' : '' }}">File Upload</label>
+                                        <input name="comp_doc[]" class="form-control" type="file" required="" accept="image/*">
+                                        @if ($errors->has('comp_doc'))
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('comp_doc') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
-                                       <label class="control-label">Expiry Date</label>
-                                       <input type="date" name="exp_date[]" class="form-control" required="">
+                                        <label class="control-label">Expiry Date</label>
+                                        <input type="date" name="exp_date[]" class="form-control" required="" value="{{$comp->exp_date}}">
                                     </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <div class="col-sm-12">
-                                 <div class="row">
-                                    <div class="col-md-4">
-                                       <label class="control-label">Name</label>
-                                       <input name="comp_name[]" class="form-control" type="text" value="Working with Children" readonly="">
-                                    </div>
-                                    <div class="col-md-4">
-                                       <label class="control-label{{ $errors->has('comp_doc') ? ' is-invalid' : '' }}">File Upload</label>
-                                       <input name="comp_doc[]" class="form-control" type="file" required="" accept="image/*">
-                                       @if ($errors->has('comp_doc'))
-                                          <span class="invalid-feedback" role="alert">
-                                             <strong>{{ $errors->first('comp_doc') }}</strong>
-                                          </span>
-                                       @endif
-                                    </div>
-                                    <div class="col-md-4">
-                                       <label class="control-label">Expiry Date</label>
-                                       <input type="date" name="exp_date[]" class="form-control" required="">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <div class="col-sm-12">
-                                 <div class="row">
-                                    <div class="col-md-4">
-                                       <label class="control-label">Name</label>
-                                       <input name="comp_name[]" class="form-control" type="text" value="Police Clearance" readonly="">
-                                    </div>
-                                    <div class="col-md-4">
-                                       <label class="control-label">File Upload</label>
-                                       <input name="comp_doc[]" class="form-control" type="file" required="" accept="image/*">
-                                    </div>
-                                    <div class="col-md-4">
-                                       <label class="control-label">Expiry Date</label>
-                                       <input type="date" name="exp_date[]" class="form-control">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <div class="col-sm-12">
-                                 <div class="row">
-                                    <div class="col-md-4">
-                                       <label class="control-label">Name</label>
-                                       <input name="comp_name[]" class="form-control" type="text" value="Driver's License" readonly="">
-                                    </div>
-                                    <div class="col-md-4">
-                                       <label class="control-label">File Upload</label>
-                                       <input name="comp_doc[]" class="form-control" type="file" required="" accept="image/*">
-                                    </div>
-                                    <div class="col-md-4">
-                                       <label class="control-label">Expiry Date</label>
-                                       <input type="date" name="exp_date[]" class="form-control">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
+                                </div>
+                                </div>
+                            </div>
+                            @endforeach
+                           {{--
                            <div>
                               <button type="button" class="btn btn-pill btn-light" id="more-competences">
                                  <i class="fa fa-plus-circle"></i> Add more
                               </button>
-                           </div>
+                           </div>--}}
                         </div>
                      </div>
                   </div>

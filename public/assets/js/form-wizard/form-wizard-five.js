@@ -257,7 +257,7 @@
                         <div class="col-sm-12">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label class="control-label">Name</label>
+                                    <label class="control-label">Title</label>
                                        <input name="comp_name[]" class="form-control" type="text">
                                     </div>
                                     <div class="col-md-4">

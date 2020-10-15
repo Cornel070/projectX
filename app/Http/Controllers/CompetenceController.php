@@ -102,6 +102,50 @@ class CompetenceController extends Controller
         return $allComps;
     }
 
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update($input, $doc, $user_id)
+    {
+        $compArr = $this->createCompUpdateArr($input, $doc, $user_id);
+        for($i = 0; $i < sizeof($compArr); $i++){
+            // get the corresponding competence row
+            $comp = Competence::find($compArr[$i]['comp_id']);
+            // copy out the values to be updated leaving out the id
+            // copy out from the second element
+            $compVals = array_slice($compArr, 1);
+            //update the competence
+            $comp->update($compVals);
+        }
+        return true;
+    }
+
+    public function createCompUpdateArr($input, $doc, $user_id)
+    {
+         //Loop through the three arrays of competence vals (name, photo, exp_date)
+         //and create one super array for all ($allComp)
+        $allComps = [];
+        foreach ($input['comp_name'] as $key => $value) {
+            $name = $doc[$key]->getClientOriginalName();
+            $storagePath = public_path('/assets/images/uploads/');
+            if ($doc[$key]->move($storagePath, $name)) {
+                array_push($allComps, [
+                        'comp_id'     => $input['comp_id'][$key],
+                        'comp_name'   => $input['comp_name'][$key],
+                        'comp_doc'    => $name,
+                        'exp_date'    => $input['exp_date'][$key],
+                        'user_id'     => $user_id
+                ]);
+            }
+        }
+
+        return $allComps;
+    }
+
     /**
      * Display the specified resource.
      *
@@ -124,17 +168,6 @@ class CompetenceController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

@@ -12,6 +12,7 @@
 <!-- Plugins JS start-->
 @yield('script')
 <script src="{{asset('assets/js/tooltip-init.js')}}"></script>
+<script src="{{asset('assets/js/sweet-alert/sweetalert.min.js')}}"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{asset('assets/js/script.js')}}"></script>

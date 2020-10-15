@@ -36,6 +36,10 @@ label{
 	display: none !important;
 }
 
+.flash{
+    width: 30% !important;
+}
+
 .error{
 	color: red !important;
 	font-weight: bold;
@@ -64,7 +68,7 @@ label{
 	justify-content: space-between;
 	align-items: center;
 	align-content: center;
-	flex-wrap: wrap;	
+	flex-wrap: wrap;
 }
 
 .profile-details h4{
@@ -92,9 +96,9 @@ label{
 	flex-direction: column;
 	justify-content: space-between;
 	margin-top: 15px;
-	height: 500px; 
-    overflow-x: hidden; 
-    overflow-y: auto; 
+	height: 500px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .staff-aside img{
@@ -150,15 +154,33 @@ label{
 	justify-content: space-between;
 	width: 80%;
 	align-items: center;
-	margin: 25px 0 0 10px;
+	margin: 25px 0 0 -4px;
 }
 
 .user-indicators button{
-	border-radius: 50px;
-	margin: 10px;
-	padding: 2px;
-	width: 130px;
-	font-weight: bold;
+	border-radius: 10px;
+	margin: 5px;
+	font-size: 5px;
+    width: 50px;
+    height: 30px;
+    font-weight: bold;
+    opacity: .7;
+    transition: all 1s ease-in-out;
+}
+
+.user-indicators button:first-child{
+    background-color: red !important;
+}
+
+.user-indicators button:hover{
+    opacity: 1;
+}
+
+#terminated_tag{
+    position:absolute;
+    color: #fff;
+    left: 430px;
+    top: 50px;
 }
 
 .staff-profile-info{
@@ -166,6 +188,10 @@ label{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+}
+
+#comp-area input{
+    font-size: 12px;
 }
 
 .staff-name{

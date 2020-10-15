@@ -5,7 +5,7 @@
     });
     $(".mobile-search").click(function(){
        $(".form-control-plaintext").toggleClass("open");
-   }); 
+   });
 
     $(".bookmark-search").click(function(){
         $(".form-control-search").toggleClass("open");
@@ -95,11 +95,11 @@ var Windowwidth = jQuery(window).width();
 if ((Windowwidth) > '575') {
     $(".mobile-search").click(function(){
        $(".search-form").toggleClass("open");
-       $(".mobile-search").toggleClass("open");    
-   });    
+       $(".mobile-search").toggleClass("open");
+   });
     $(".close-search").click(function(){
        $(".search-form").toggleClass("open");
-       $(".mobile-search").toggleClass("open");    
+       $(".mobile-search").toggleClass("open");
    });
 }
 
@@ -142,7 +142,7 @@ $(document).on('submit','#competence-form', function(e){
         $('.loader-ico').toggleClass('hide');
         $(btn).fadeIn(300);
         console.log(data);
-        //if theres an error 
+        //if theres an error
         if (data.success === false) {
         //hide the already displayedd error msgs
           hideErrTxts();
@@ -189,7 +189,7 @@ function displayErrors(error)
 
         case 'Expiry':
             $('#exp-error').removeClass('hide');
-        break;        
+        break;
     }
     return true;
 }
@@ -212,3 +212,97 @@ function clearInputs(form)
 
     return true;
 }
+
+$(document).on('click', '#del-staff-btn', function() {
+    let url = $(this).data('url');
+    swal({
+        title: "Are you sure?",
+        text: "This staff\'s information will not be backed up on the server. You could terminate instead.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        buttons: ["Cancel", "Yes, delete"],
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            window.location.href = url;
+        } else {
+            swal("Staff information not deleted");
+        }
+    })
+})
+
+$(document).on('click', '#term-staff-btn', function() {
+    let that = $(this);
+    let staffID = $(that).data('id');
+    swal({
+        title: "Are you sure?",
+        text: "You are about to terminate this staff'\s contract with the company?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        buttons: ["Cancel", "Yes, terminate"],
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:page_data.routes.terminate_contract,
+                type:"POST",
+                data: { staffID, _token: page_data.csrf_token },
+                success: function(data){
+                    handleTermination(data, that);
+                }
+            });
+        }
+    })
+})
+
+function swalSuccessAlert(text) {
+    return swal(text, {
+        icon: "success",
+    });
+}
+
+function handleTermination(data, that) {
+    if (data) {
+        $('#terminated_tag').toggleClass('hide');
+        $(that).toggleClass('hide');
+        $('#reinstate-staff-btn').toggleClass('hide');
+        swalSuccessAlert("Staff contract terminated");
+    }
+}
+
+$(document).on('click', '#reinstate-staff-btn', function() {
+    let that = $(this);
+    let staffID = $(that).data('id');
+    swal({
+        title: "Are you sure?",
+        text: "You are about to reinstate this staff?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        buttons: ["Cancel", "Yes, reinstate"],
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:page_data.routes.reinstate_staff,
+                type:"POST",
+                data: { staffID, _token: page_data.csrf_token },
+                success: function(data){
+                    handleReinstatement(data, that);
+                }
+            });
+        }
+    })
+})
+
+function handleReinstatement(data, that) {
+    if (data) {
+        $('#terminated_tag').toggleClass('hide');
+        $(that).toggleClass('hide');
+        $('#term-staff-btn').toggleClass('hide');
+        swalSuccessAlert("Staff has been successfully reinstated");
+    }
+}
+

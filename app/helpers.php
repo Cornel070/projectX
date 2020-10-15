@@ -60,6 +60,9 @@ function competenceIcon($competence)
         case 'Working with Children':
             return '<i class="icofont icofont-holding-hands"></i>';
             break;
+        case 'Driver\'s License':
+            return '<i class="icofont icofont-license"></i>';
+            break;
         default:
             return '<i class="icofont icofont-certificate-alt-1"></i>';
             break;
